@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import loginUser from '../../services/authService';
+import AuthButton from './AuthButton';
 
 const LoginForm = () => {
   const [nickname, setNickName] = useState<string>('');
@@ -14,6 +15,7 @@ const LoginForm = () => {
 
     try {
       const userData = await loginUser(nickname, password);
+      //TODO: 삭제할 것
       console.log('로그인 성공: ', userData);
       setSuccess(true);
     } catch (err) {
@@ -35,7 +37,7 @@ const LoginForm = () => {
         value={password}
         onChange={(e) => setPassWord(e.target.value)}
       />
-      <button type="submit">로그인</button>
+      <AuthButton onClick={handleLogin} />
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {success && <p style={{ color: 'green' }}>로그인 성공!</p>}
     </form>
