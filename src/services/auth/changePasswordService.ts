@@ -1,5 +1,5 @@
 import { collection, serverTimestamp, addDoc, query, where, getDocs} from 'firebase/firestore';
-import {db} from "../firebase/firebaseConfig";
+import {db} from "../../firebase/firebaseConfig";
 
 const requestPasswordReset = async (nickname: string, newPassword: string) => {
     const userQuery = query(

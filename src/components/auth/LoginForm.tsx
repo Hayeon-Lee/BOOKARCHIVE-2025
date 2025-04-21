@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 
-import loginUser from '../../services/authService';
+import loginUser from '../../services/auth/authService';
 import AuthButton from './AuthButton';
 
 const LoginForm = () => {
@@ -18,10 +18,9 @@ const LoginForm = () => {
     setSuccess(false);
 
     try {
-      const userData = await loginUser(nickname, password);
-      //TODO: 삭제할 것
-      console.log('로그인 성공: ', userData);
+      await loginUser(nickname, password);
       setSuccess(true);
+      navigate("/bookarchive");
     } catch (err) {
       setError((err as Error).message);
     }

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import requestPasswordReset from '../../services/changePasswordService';
+import requestPasswordReset from '../../services/auth/changePasswordService';
 import AuthButton from '../../components/auth/AuthButton';
 import { useNavigate } from 'react-router-dom';
 
