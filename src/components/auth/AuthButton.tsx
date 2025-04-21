@@ -1,4 +1,5 @@
 import React from 'react';
+import {Button} from 'antd';
 
 interface AuthButtonProps {
   onClick: (e: React.FormEvent) => void;
@@ -6,7 +7,7 @@ interface AuthButtonProps {
 }
 
 const AuthButton: React.FC<AuthButtonProps> = ({ onClick, label }) => {
-  return <button onClick={onClick}>{label}</button>;
+  return <Button color="primary" variant="filled" onClick={onClick}>{label}</Button>;
 };
 
 export default AuthButton;
