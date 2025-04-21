@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import {useNavigate} from 'react-router-dom';
+
 import loginUser from '../../services/authService';
 import AuthButton from './AuthButton';
 
@@ -7,6 +9,8 @@ const LoginForm = () => {
   const [password, setPassWord] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,6 +27,10 @@ const LoginForm = () => {
     }
   };
 
+  const handleChangePassword = async (e: React.FormEvent) => {
+    navigate("/changepassword");
+  }
+
   return (
     <form onSubmit={handleLogin}>
       <input
@@ -37,7 +45,8 @@ const LoginForm = () => {
         value={password}
         onChange={(e) => setPassWord(e.target.value)}
       />
-      <AuthButton onClick={handleLogin} />
+      <AuthButton onClick={handleLogin} label="로그인" />
+      <AuthButton onClick={handleChangePassword} label="비밀번호 변경" />
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {success && <p style={{ color: 'green' }}>로그인 성공!</p>}
     </form>
