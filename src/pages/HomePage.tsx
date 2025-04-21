@@ -1,8 +1,9 @@
 import {useState, useEffect} from 'react';
-import {DatePicker, Row, Col, Typography, Spin} from 'antd';
+import {Row, Col, Typography, Spin} from 'antd';
 import dayjs, {Dayjs} from 'dayjs';
 
 import MemberSummaryCard from '../components/book/MemberSummaryCard';
+import MonthSelector from "../components/common/MonthSelector";
 import { getBooksPerUserByMonth } from '../services/book/getMemberBookService';
 
 const {Title} = Typography;
@@ -30,11 +31,7 @@ const HomePage = () => {
     return (
         <div>
             <Title level={2}></Title>
-            <DatePicker 
-                picker="month"
-                value={selectedMonth}
-                onChange={(date)=>date && setSelectedMonth(date)}
-            />
+            <MonthSelector value={selectedMonth} onChange={setSelectedMonth} />
 
             {loading ? (<Spin size="large"/>) :
             (

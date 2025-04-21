@@ -1,12 +1,7 @@
 import {db} from '../../firebase/firebaseConfig';
 import {collection, getDocs} from 'firebase/firestore';
 import dayjs, {Dayjs} from 'dayjs';
-
-interface Summary {
-    userId: string;
-    name: string;
-    count: number;
-}
+import { Summary } from '../../types/book';
 
 export const getBooksPerUserByMonth = async (month: Dayjs): Promise<Summary[]> => {
     const userSnapshots = await getDocs(collection(db, 'users'));
