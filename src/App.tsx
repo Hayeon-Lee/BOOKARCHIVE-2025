@@ -9,10 +9,10 @@ const App = () => {
     <div>
       <h1>📚 BOOKARCHIVE-2025</h1>
       <Routes>
-        <Route path="/" element={<LoginPage/>}></Route>
-        <Route path="/changepassword" element={<ChangePasswordPage/>}></Route>
-        <Route path="/information" element={<ResetPasswordInfoPage/>}></Route>
-        <Route path="/bookarchive" element={<HomePage/>}></Route>
+        <Route path="/" element={<LoginPage />}></Route>
+        <Route path="/changepassword" element={<ChangePasswordPage />}></Route>
+        <Route path="/information" element={<ResetPasswordInfoPage />}></Route>
+        <Route path="/bookarchive" element={<HomePage />}></Route>
       </Routes>
     </div>
   );

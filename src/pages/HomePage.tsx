@@ -1,51 +1,51 @@
-import {useState, useEffect} from 'react';
-import {Row, Col, Typography, Spin} from 'antd';
-import dayjs, {Dayjs} from 'dayjs';
+import { useState, useEffect } from 'react';
+import { Row, Col, Typography, Spin } from 'antd';
+import dayjs, { Dayjs } from 'dayjs';
 
 import MemberSummaryCard from '../components/book/MemberSummaryCard';
-import MonthSelector from "../components/common/MonthSelector";
+import MonthSelector from '../components/common/MonthSelector';
 import { getBooksPerUserByMonth } from '../services/book/getMemberBookService';
 
-const {Title} = Typography;
+const { Title } = Typography;
 
 const HomePage = () => {
-    const [selectedMonth, setSelectedMonth] = useState<Dayjs>(dayjs());
-    const [userSummaries, setUserSummaries] = useState<any[]>([]);
-    const [loading, setLoading] = useState(false);
+  const [selectedMonth, setSelectedMonth] = useState<Dayjs>(dayjs());
+  const [userSummaries, setUserSummaries] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
 
-    useEffect(()=>{
-        const fetchSummaries = async() => {
-            setLoading(true);
-            try {
-            const summaries = await getBooksPerUserByMonth(selectedMonth);
-            setUserSummaries(summaries);
-            } catch (error) {
-                console.log("멤버 요약 로딩 실패: ", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchSummaries();
-    }, [selectedMonth]);
+  useEffect(() => {
+    const fetchSummaries = async () => {
+      setLoading(true);
+      try {
+        const summaries = await getBooksPerUserByMonth(selectedMonth);
+        setUserSummaries(summaries);
+      } catch (error) {
+        console.log('멤버 요약 로딩 실패: ', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSummaries();
+  }, [selectedMonth]);
 
-    return (
-        <div>
-            <Title level={2}></Title>
-            <MonthSelector value={selectedMonth} onChange={setSelectedMonth} />
+  return (
+    <div>
+      <Title level={2}></Title>
+      <MonthSelector value={selectedMonth} onChange={setSelectedMonth} />
 
-            {loading ? (<Spin size="large"/>) :
-            (
-                <Row gutter={[16, 16]}>
-                    {userSummaries.map((user)=>(
-                        <Col span={6} key={user.userId}>
-                            <MemberSummaryCard name={user.name} count={user.count}/>
-                        </Col>
-                    ))}
-                </Row>
-            )}
-        </div>
-    )
-
-}
+      {loading ? (
+        <Spin size="large" />
+      ) : (
+        <Row gutter={[16, 16]}>
+          {userSummaries.map((user) => (
+            <Col span={6} key={user.userId}>
+              <MemberSummaryCard name={user.name} count={user.count} />
+            </Col>
+          ))}
+        </Row>
+      )}
+    </div>
+  );
+};
 
 export default HomePage;

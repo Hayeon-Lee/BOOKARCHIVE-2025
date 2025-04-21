@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import loginUser from '../../services/auth/authService';
 import AuthButton from './AuthButton';
@@ -20,15 +20,15 @@ const LoginForm = () => {
     try {
       await loginUser(nickname, password);
       setSuccess(true);
-      navigate("/bookarchive");
+      navigate('/bookarchive');
     } catch (err) {
       setError((err as Error).message);
     }
   };
 
   const handleChangePassword = () => {
-    navigate("/changepassword");
-  }
+    navigate('/changepassword');
+  };
 
   return (
     <form onSubmit={handleLogin}>
