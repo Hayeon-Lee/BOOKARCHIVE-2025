@@ -1,6 +1,7 @@
-import LoginPage from './pages/LoginPage';
-import ChangePasswordPage from './pages/ChangePasswordPage';
+import LoginPage from './pages/auth/LoginPage';
+import ChangePasswordPage from './pages/auth/ChangePasswordPage';
 import { Route, Routes } from 'react-router-dom';
+import ResetPasswordInfoPage from './pages/auth/ResetPasswordInfoPage';
 
 const App = () => {
   return (
@@ -9,6 +10,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<LoginPage/>}></Route>
         <Route path="/changepassword" element={<ChangePasswordPage/>}></Route>
+        <Route path="/information" element={<ResetPasswordInfoPage/>}></Route>
       </Routes>
     </div>
   );

@@ -27,7 +27,7 @@ const LoginForm = () => {
     }
   };
 
-  const handleChangePassword = async (e: React.FormEvent) => {
+  const handleChangePassword = () => {
     navigate("/changepassword");
   }
 
@@ -37,12 +37,14 @@ const LoginForm = () => {
         type="text"
         placeholder="오픈 채팅방 닉네임"
         value={nickname}
+        required
         onChange={(e) => setNickName(e.target.value)}
       />
       <input
         type="password"
         placeholder="비밀번호"
         value={password}
+        required
         onChange={(e) => setPassWord(e.target.value)}
       />
       <AuthButton onClick={handleLogin} label="로그인" />
