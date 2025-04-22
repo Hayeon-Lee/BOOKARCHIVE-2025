@@ -4,7 +4,7 @@ export interface LoginUser {
 }
 
 export interface UserStore {
-    loginUser: LoginUser | null;
+    loginUser: LoginUser;
     setUser: (loginUser : LoginUser) => void;
     clearUser: () => void;
 }
