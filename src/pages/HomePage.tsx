@@ -46,16 +46,16 @@ const HomePage = () => {
 
   return (
     <div>
-      <Title level={2}></Title>
+      <Title level={2}>📅 월별 멤버별 독서 기록</Title>
       <MonthSelector value={selectedMonth} onChange={setSelectedMonth} />
 
       {loading ? (
         <Spin size="large" />
       ) : (
         <Row gutter={[16, 16]}>
-          {userSummaries.map((user) => (
-            <Col span={6} key={user.userId}>
-              <MemberSummaryCard name={user.nickname} count={user.count} />
+          {userSummaries.map((summary) => (
+            <Col span={6} key={summary.userId}>
+              <MemberSummaryCard nickname={summary.nickname} count={summary.count} userId={summary.userId} onClick={()=>navigate(`/bookarchive/${summary.userId}`)}/>
             </Col>
           ))}
         </Row>

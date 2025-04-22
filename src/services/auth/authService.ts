@@ -3,7 +3,7 @@ import { db } from '../../firebase/firebaseConfig';
 import bcrypt from 'bcryptjs';
 import { LoginUser } from '../../types/auth';
 
-const loginUser = async (nickname: string, password: string) => {
+export const loginUser = async (nickname: string, password: string) => {
   const userQuery = query(
     collection(db, 'user'),
     where('nickname', '==', nickname),
@@ -28,5 +28,3 @@ const loginUser = async (nickname: string, password: string) => {
   }
   return loginUser;
 };
-
-export default loginUser;

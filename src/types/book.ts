@@ -12,8 +12,10 @@ export interface Summary {
 }
 
 export interface MemberSummaryCardProps {
-  name: string;
+  nickname: string;
   count: number;
+  userId: string;
+  onClick: () => void;
 }
 
 export interface AddBookModalProps {
