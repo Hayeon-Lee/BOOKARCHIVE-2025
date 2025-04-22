@@ -2,6 +2,7 @@ import { db } from '../../firebase/firebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
 import dayjs, { Dayjs } from 'dayjs';
 import { Summary } from '../../types/book';
+import { ReadBookData } from '../../types/book';
 
 export const getBooksPerUserByMonth = async (
   month: Dayjs,
@@ -33,3 +34,20 @@ export const getBooksPerUserByMonth = async (
 
   return results;
 };
+
+export const getBooksByUser = async (userId: string): Promise<ReadBookData[]> => {
+  if (!userId) return [];
+
+  const snapshot = await getDocs(collection(db, `user/${userId}/books`));
+
+  return snapshot.docs.map((doc)=> {
+    const data = doc.data();
+    return {
+      id: doc.id,
+      title: data.title,
+      author: data.author,
+      date: data.date?.toDate?.(),
+      memo: data.memo,
+    }
+  });
+}

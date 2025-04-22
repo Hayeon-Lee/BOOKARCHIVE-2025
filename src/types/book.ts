@@ -21,3 +21,11 @@ export interface AddBookModalProps {
   onClose: () => void;
   onSubmit: (book: BookData) => void;
 }
+
+export interface ReadBookData {
+  id: string;
+  title: string;
+  author: string;
+  date: Date;
+  memo?: string;
+}
