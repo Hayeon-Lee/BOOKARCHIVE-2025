@@ -1,11 +1,12 @@
 import React from 'react';
 import { Modal, Form, Input, DatePicker } from 'antd';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
+import { BookData } from '../../types/book';
 
 interface AddBookModalProps {
   open: boolean;
   onClose: () => void;
-  onSubmit: (book: any) => void;
+  onSubmit: (book: BookData) => void;
 }
 
 const AddBookModal: React.FC<AddBookModalProps> = ({
@@ -24,6 +25,10 @@ const AddBookModal: React.FC<AddBookModalProps> = ({
     form.resetFields();
   };
 
+  const handleDisabledDate = (current:Dayjs) => {
+    return current && current > dayjs().endOf('day');
+  };
+
   return (
     <Modal
       open={open}
@@ -37,13 +42,13 @@ const AddBookModal: React.FC<AddBookModalProps> = ({
         <Form.Item label="제목" name="title" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
-        <Form.Item label="저자" name="title" rules={[{ required: true }]}>
+        <Form.Item label="저자" name="author" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
-        <Form.Item label="날짜" name="title" rules={[{ required: true }]}>
-          <Input />
+        <Form.Item label="날짜" name="date" rules={[{ required: true }]}>
+          <DatePicker style={{width:'100%'}} disabledDate={handleDisabledDate} />
         </Form.Item>
-        <Form.Item label="평점" name="title" rules={[{ required: true }]}>
+        <Form.Item label="평점" name="rating" rules={[{ required: true }]}>
           <Input.TextArea />
         </Form.Item>
       </Form>
