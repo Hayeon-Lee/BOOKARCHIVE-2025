@@ -3,6 +3,7 @@ import ChangePasswordPage from './pages/auth/ChangePasswordPage';
 import { Route, Routes } from 'react-router-dom';
 import ResetPasswordInfoPage from './pages/auth/ResetPasswordInfoPage';
 import HomePage from './pages/HomePage';
+import MyShelfPage from './pages/book/MyShelfPage';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Route path="/changepassword" element={<ChangePasswordPage />}></Route>
         <Route path="/information" element={<ResetPasswordInfoPage />}></Route>
         <Route path="/bookarchive" element={<HomePage />}></Route>
+        <Route path="/bookarchive/:userId" element={<MyShelfPage/>} />
       </Routes>
     </div>
   );

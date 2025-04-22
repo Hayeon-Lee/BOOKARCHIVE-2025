@@ -8,3 +8,9 @@ export interface UserStore {
     setUser: (loginUser : LoginUser) => void;
     clearUser: () => void;
 }
+
+export interface UserSummary {
+    userId: string;
+    nickname: string;
+    count: number;
+}

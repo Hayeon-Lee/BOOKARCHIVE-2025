@@ -26,8 +26,7 @@ const LoginForm = () => {
         userId: userData.userId,
         nickname: userData.nickname,
       })
-      console.log(userData.userId, userData.nickname);
-
+      
       setSuccess(true);
       navigate('/bookarchive');
     } catch (err) {
