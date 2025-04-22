@@ -1,4 +1,11 @@
-import { collection, query, where, doc, getDocs, getDoc } from 'firebase/firestore';
+import {
+  collection,
+  query,
+  where,
+  doc,
+  getDocs,
+  getDoc,
+} from 'firebase/firestore';
 import { db } from '../../firebase/firebaseConfig';
 import bcrypt from 'bcryptjs';
 import { LoginUser } from '../../types/auth';
@@ -30,7 +37,6 @@ export const loginUser = async (nickname: string, password: string) => {
 };
 
 export const getNicknameById = async (id: string | null) => {
-
   if (id) {
     const userRef = doc(db, 'user', id);
     const userSnap = await getDoc(userRef);
@@ -40,4 +46,4 @@ export const getNicknameById = async (id: string | null) => {
       return data.nickname;
     }
   }
-}
+};

@@ -25,8 +25,8 @@ const LoginForm = () => {
       setUser({
         userId: userData.userId,
         nickname: userData.nickname,
-      })
-      
+      });
+
       setSuccess(true);
       navigate('/bookarchive');
     } catch (err) {

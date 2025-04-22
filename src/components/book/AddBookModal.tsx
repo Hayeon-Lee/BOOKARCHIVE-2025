@@ -19,7 +19,7 @@ const AddBookModal: React.FC<AddBookModalProps> = ({
     form.resetFields();
   };
 
-  const handleDisabledDate = (current:Dayjs) => {
+  const handleDisabledDate = (current: Dayjs) => {
     return current && current > dayjs().endOf('day');
   };
 
@@ -40,7 +40,10 @@ const AddBookModal: React.FC<AddBookModalProps> = ({
           <Input />
         </Form.Item>
         <Form.Item label="날짜" name="date" rules={[{ required: true }]}>
-          <DatePicker style={{width:'100%'}} disabledDate={handleDisabledDate} />
+          <DatePicker
+            style={{ width: '100%' }}
+            disabledDate={handleDisabledDate}
+          />
         </Form.Item>
         <Form.Item label="평점" name="rating" rules={[{ required: true }]}>
           <Input.TextArea />

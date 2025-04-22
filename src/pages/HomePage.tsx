@@ -40,9 +40,8 @@ const HomePage = () => {
       alert('로그인이 필요합니다.');
       return;
     }
-    if (loginUser != null)
-    navigate(`/bookarchive/${loginUser.userId}`);
-  }
+    if (loginUser != null) navigate(`/bookarchive/${loginUser.userId}`);
+  };
 
   return (
     <div>
@@ -55,15 +54,22 @@ const HomePage = () => {
         <Row gutter={[16, 16]}>
           {userSummaries.map((summary) => (
             <Col span={6} key={summary.userId}>
-              <MemberSummaryCard nickname={summary.nickname} count={summary.count} userId={summary.userId} onClick={()=>{
-                console.log(summary.userId, summary.nickname)
-                navigate(`/bookarchive/${summary.userId}`)}}/>
+              <MemberSummaryCard
+                nickname={summary.nickname}
+                count={summary.count}
+                userId={summary.userId}
+                onClick={() => {
+                  navigate(`/bookarchive/${summary.userId}`);
+                }}
+              />
             </Col>
           ))}
         </Row>
       )}
 
-      <Button type="default" onClick={handleGoToMyShelf}>내 책장 보기</Button>
+      <Button type="default" onClick={handleGoToMyShelf}>
+        내 책장 보기
+      </Button>
     </div>
   );
 };

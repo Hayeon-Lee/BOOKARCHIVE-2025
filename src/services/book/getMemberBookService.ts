@@ -13,9 +13,7 @@ export const getBooksPerUserByMonth = async (
   for (const userDoc of userSnapshots.docs) {
     const userId = userDoc.id;
     const userData = userDoc.data();
-    const booksSnapshot = await getDocs(
-      collection(db, `user/${userId}/books`),
-    );
+    const booksSnapshot = await getDocs(collection(db, `user/${userId}/books`));
 
     const filteredBooks = booksSnapshot.docs.filter((doc) => {
       const data = doc.data();
@@ -33,13 +31,13 @@ export const getBooksPerUserByMonth = async (
   return results;
 };
 
-export const getBooksByUser = async (userId: string): Promise<ReadBookData[]> => {
+export const getBooksByUser = async (
+  userId: string,
+): Promise<ReadBookData[]> => {
   if (!userId) return [];
-
-  console.log(userId);
   const snapshot = await getDocs(collection(db, `user/${userId}/books`));
 
-  return snapshot.docs.map((doc)=> {
+  return snapshot.docs.map((doc) => {
     const data = doc.data();
     return {
       id: doc.id,
@@ -47,6 +45,6 @@ export const getBooksByUser = async (userId: string): Promise<ReadBookData[]> =>
       author: data.author,
       date: data.date?.toDate?.(),
       memo: data.memo,
-    }
+    };
   });
-}
+};
