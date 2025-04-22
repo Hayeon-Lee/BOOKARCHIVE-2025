@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Spin, Row, Col, Typography, Button, Empty } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
+import { useParams } from 'react-router-dom';
 
 import AddBookModal from '../../components/book/AddBookModal';
 import { addBookByUser } from '../../services/book/addBookService';
@@ -10,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { BookData, ReadBookData } from '../../types/book';
 import BookCard from "../../components/book/BookCard"
 import MonthSelector from '../../components/common/MonthSelector';
+import { getNicknameById } from '../../services/auth/authService';
 
 const { Title } = Typography;
 
@@ -20,10 +22,20 @@ const MyShelfPage = () => {
   const [selectedMonth, setSelectedMonth] = useState<Dayjs>(dayjs());
   const [viewAllYear, setViewAllYear] = useState<boolean>(false);
 
-  const userId = useUserStore((state) => state.loginUser?.userId);
+  const { userId } = useParams<{ userId: string }>();
+  const [ nickname, setNickname] = useState('');
+
   const loginUser = useUserStore((state) => state.loginUser);
-  
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    const fetchUserNickname = async() => {
+      const {userNickname} = await getNicknameById(userId ?? null);
+      if (userNickname) setNickname(userNickname);
+    };
+
+    fetchUserNickname();
+  }, [userId]);
 
   useEffect(()=>{
     const fetchBooks = async () => {
@@ -63,7 +75,7 @@ const MyShelfPage = () => {
 
   return (
     <div style={{ padding: 24 }}>
-      <Title level={2}>🎁 {loginUser.nickname}의 책장</Title>
+      <Title level={2}>🎁 {nickname}의 책장</Title>
 
       <Title level={4}>
         📘 {dayjs().year()}년 올해 읽은 책: {booksThisYear.length}권 
@@ -79,7 +91,7 @@ const MyShelfPage = () => {
 
       <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 16 }}>
         {!viewAllYear && <MonthSelector value={selectedMonth} onChange={setSelectedMonth} />}
-        {loginUser && loginUser.userId === userId && (
+        {loginUser?.userId === userId && (
           <Button type="primary" onClick={() => setOpen(true)}>책 추가하기</Button>
         )}
         <Button onClick={() => setViewAllYear(prev => !prev)}>

@@ -55,7 +55,9 @@ const HomePage = () => {
         <Row gutter={[16, 16]}>
           {userSummaries.map((summary) => (
             <Col span={6} key={summary.userId}>
-              <MemberSummaryCard nickname={summary.nickname} count={summary.count} userId={summary.userId} onClick={()=>navigate(`/bookarchive/${summary.userId}`)}/>
+              <MemberSummaryCard nickname={summary.nickname} count={summary.count} userId={summary.userId} onClick={()=>{
+                console.log(summary.userId, summary.nickname)
+                navigate(`/bookarchive/${summary.userId}`)}}/>
             </Col>
           ))}
         </Row>

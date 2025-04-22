@@ -36,6 +36,7 @@ export const getBooksPerUserByMonth = async (
 export const getBooksByUser = async (userId: string): Promise<ReadBookData[]> => {
   if (!userId) return [];
 
+  console.log(userId);
   const snapshot = await getDocs(collection(db, `user/${userId}/books`));
 
   return snapshot.docs.map((doc)=> {
