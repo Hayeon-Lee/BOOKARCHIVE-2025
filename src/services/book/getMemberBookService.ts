@@ -8,15 +8,13 @@ export const getBooksPerUserByMonth = async (
   month: Dayjs,
 ): Promise<Summary[]> => {
   const userSnapshots = await getDocs(collection(db, 'user'));
-  console.log(userSnapshots);
-
   const results: Summary[] = [];
 
   for (const userDoc of userSnapshots.docs) {
     const userId = userDoc.id;
     const userData = userDoc.data();
     const booksSnapshot = await getDocs(
-      collection(db, `users/${userId}/books`),
+      collection(db, `user/${userId}/books`),
     );
 
     const filteredBooks = booksSnapshot.docs.filter((doc) => {
