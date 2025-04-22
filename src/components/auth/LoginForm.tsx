@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUserStore } from '../../services/auth/useUsrStoreService';
 
 import loginUser from '../../services/auth/authService';
 import AuthButton from './AuthButton';
@@ -12,13 +13,21 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
 
+  const { setUser } = useUserStore();
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setSuccess(false);
 
     try {
-      await loginUser(nickname, password);
+      const userData = await loginUser(nickname, password);
+      setUser({
+        userId: userData.userId,
+        nickname: userData.nickname,
+      })
+      console.log(userData.userId, userData.nickname);
+
       setSuccess(true);
       navigate('/bookarchive');
     } catch (err) {

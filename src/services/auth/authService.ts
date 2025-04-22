@@ -1,6 +1,7 @@
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase/firebaseConfig';
 import bcrypt from 'bcryptjs';
+import { LoginUser } from '../../types/auth';
 
 const loginUser = async (nickname: string, password: string) => {
   const userQuery = query(
@@ -15,15 +16,17 @@ const loginUser = async (nickname: string, password: string) => {
   }
 
   const userDoc = querySnapshot.docs[0];
-  const userData = userDoc.data();
 
-  const isMatch = await bcrypt.compare(password, userData.password);
+  const loginUser: LoginUser = {
+    userId: userDoc.id,
+    nickname: userDoc.data().nickname,
+  };
+  const isMatch = await bcrypt.compare(password, userDoc.data().password);
 
   if (!isMatch) {
     throw new Error('비밀번호가 틀립니다.');
   }
-
-  return userData;
+  return loginUser;
 };
 
 export default loginUser;

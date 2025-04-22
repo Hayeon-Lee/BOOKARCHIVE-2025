@@ -10,7 +10,7 @@ const { Title } = Typography;
 
 const HomePage = () => {
   const [selectedMonth, setSelectedMonth] = useState<Dayjs>(dayjs());
-  const [userSummaries, setUserSummaries] = useState<any[]>([]);
+  const [userSummaries, setUserSummaries] = useState<unknown[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
