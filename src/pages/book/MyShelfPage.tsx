@@ -18,6 +18,7 @@ const MyShelfPage = () => {
   const [books, setBooks] = useState<ReadBookData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedMonth, setSelectedMonth] = useState<Dayjs>(dayjs());
+  const [viewAllYear, setViewAllYear] = useState<boolean>(false);
 
   const userId = useUserStore((state) => state.loginUser?.userId);
   const loginUser = useUserStore((state) => state.loginUser);
@@ -52,38 +53,47 @@ const MyShelfPage = () => {
     dayjs(book.date).year() === dayjs().year()
   );
 
-  const booksThisMonth = books
+  const booksThisMonth = booksThisYear
     .filter(book => dayjs(book.date).isSame(selectedMonth, 'month'))
     .sort((a, b) => dayjs(a.date).valueOf() - dayjs(b.date).valueOf());
+
+  const booksToDisplay = viewAllYear
+    ? [...booksThisYear].sort((a, b) => dayjs(a.date).valueOf() - dayjs(b.date).valueOf())
+    : booksThisMonth;
 
   return (
     <div style={{ padding: 24 }}>
       <Title level={2}>🎁 {loginUser.nickname}의 책장</Title>
 
       <Title level={4}>
-        📘 {dayjs().year()}년 올해 읽은 책: {booksThisYear.length}권
+        📘 {dayjs().year()}년 올해 읽은 책: {booksThisYear.length}권 
       </Title>
 
-      <Title level={5}>
-        📅 {selectedMonth.format('M')}월에 읽은 책: {booksThisMonth.length}권
-      </Title>
-
-      <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 16 }}>
-        <MonthSelector value={selectedMonth} onChange={setSelectedMonth} />
-        {loginUser && loginUser.userId === userId && (
-          <Button type="primary" onClick={() => setOpen(true)}>책 추가하기</Button>
-        )}
-      </div>
+      { viewAllYear ? null
+        : <Title level={5}>
+            📅 {selectedMonth.format('M')}월에 읽은 책: {booksThisMonth.length}권
+          </Title>
+      }
 
       <AddBookModal open={open} onClose={() => setOpen(false)} onSubmit={handleAddBook} />
 
+      <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 16 }}>
+        {!viewAllYear && <MonthSelector value={selectedMonth} onChange={setSelectedMonth} />}
+        {loginUser && loginUser.userId === userId && (
+          <Button type="primary" onClick={() => setOpen(true)}>책 추가하기</Button>
+        )}
+        <Button onClick={() => setViewAllYear(prev => !prev)}>
+          {viewAllYear ? '월별로 보기' : '올해 읽은 책 전체 보기'}
+        </Button>
+      </div>
+
       {loading ? (
         <Spin size="large" />
-      ) : booksThisMonth.length === 0 ? (
-        <Empty description="해당 월에는 읽은 책이 없습니다." style={{ marginTop: 40 }} />
+      ) : booksToDisplay.length === 0 ? (
+        <Empty description={viewAllYear ? "올해 읽은 책이 없습니다." : "해당 월에는 읽은 책이 없습니다."} style={{ marginTop: 40 }} />
       ) : (
         <Row gutter={[16, 16]}>
-          {booksThisMonth.map((book) => (
+          {booksToDisplay.map((book) => (
             <Col span={8} key={book.id}>
               <BookCard
                 title={book.title}
