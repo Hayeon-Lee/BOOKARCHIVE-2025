@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react';
 import { Row, Col, Typography, Spin, Button } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
+import { useNavigate } from 'react-router-dom';
 
 import MemberSummaryCard from '../components/book/MemberSummaryCard';
 import MonthSelector from '../components/common/MonthSelector';
 import { getBooksPerUserByMonth } from '../services/book/getMemberBookService';
-import { useNavigate } from 'react-router-dom';
 import { useUserStore } from '../services/auth/useUsrStoreService';
-import { UserSummary } from '../types/auth';
+import { Summary } from '../types/book';
 
 const { Title } = Typography;
 
 const HomePage = () => {
   const [selectedMonth, setSelectedMonth] = useState<Dayjs>(dayjs());
-  const [userSummaries, setUserSummaries] = useState<UserSummary[]>([]);
+  const [userSummaries, setUserSummaries] = useState<Summary[]>([]);
   const [loading, setLoading] = useState(false);
 
   const { loginUser } = useUserStore();

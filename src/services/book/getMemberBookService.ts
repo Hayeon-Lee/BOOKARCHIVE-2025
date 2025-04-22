@@ -6,7 +6,8 @@ import { Summary } from '../../types/book';
 export const getBooksPerUserByMonth = async (
   month: Dayjs,
 ): Promise<Summary[]> => {
-  const userSnapshots = await getDocs(collection(db, 'users'));
+  const userSnapshots = await getDocs(collection(db, 'user'));
+  console.log(userSnapshots);
 
   const results: Summary[] = [];
 
@@ -25,7 +26,7 @@ export const getBooksPerUserByMonth = async (
 
     results.push({
       userId,
-      name: userData.name || '이름 없음',
+      nickname: userData.nickname || '이름 없음',
       count: filteredBooks.length,
     });
   }

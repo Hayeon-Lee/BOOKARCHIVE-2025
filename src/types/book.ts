@@ -7,6 +7,17 @@ export interface BookData {
 
 export interface Summary {
   userId: string;
+  nickname: string;
+  count: number;
+}
+
+export interface MemberSummaryCardProps {
   name: string;
   count: number;
+}
+
+export interface AddBookModalProps {
+  open: boolean;
+  onClose: () => void;
+  onSubmit: (book: BookData) => void;
 }

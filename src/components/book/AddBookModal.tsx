@@ -1,13 +1,7 @@
 import React from 'react';
 import { Modal, Form, Input, DatePicker } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
-import { BookData } from '../../types/book';
-
-interface AddBookModalProps {
-  open: boolean;
-  onClose: () => void;
-  onSubmit: (book: BookData) => void;
-}
+import { AddBookModalProps } from '../../types/book';
 
 const AddBookModal: React.FC<AddBookModalProps> = ({
   open,

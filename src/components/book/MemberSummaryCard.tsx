@@ -1,12 +1,8 @@
 import React from 'react';
 import { Card, Typography } from 'antd';
+import { MemberSummaryCardProps } from '../../types/book';
 
 const { Title, Text } = Typography;
-
-interface MemberSummaryCardProps {
-  name: string;
-  count: number;
-}
 
 const MemberSummaryCard: React.FC<MemberSummaryCardProps> = ({
   name,
