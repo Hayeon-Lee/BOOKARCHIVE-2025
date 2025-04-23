@@ -67,28 +67,6 @@ const ChangePasswordPage = () => {
       </Form.Item>
     </Form>
   );
-  /*
-  return (
-    <form>
-      <input
-        type="text"
-        placeholder="오픈 채팅방 닉네임"
-        value={nickname}
-        required
-        onChange={(e) => setNickname(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="바꿀 비밀번호"
-        value={newPassword}
-        required
-        onChange={(e) => setNewPassword(e.target.value)}
-      />
-      <AuthButton onClick={handleRequest} label="관리자에게 요청하기" />
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-    </form>
-  );
-  */
 };
 
 export default ChangePasswordPage;
