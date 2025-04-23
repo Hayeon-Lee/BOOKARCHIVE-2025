@@ -7,7 +7,7 @@ import { loginUser } from '../../services/auth/authService';
 import AuthButton from './AuthButton';
 
 const LoginForm = () => {
-  const [error, setError] = useState<string>('');
+  const [, setError] = useState<string>('');
   const [, setSuccess] = useState<boolean>(false);
 
   const navigate = useNavigate();
