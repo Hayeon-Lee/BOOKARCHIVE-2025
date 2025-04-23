@@ -35,7 +35,7 @@ const requestPasswordReset = async (nickname: string, newPassword: string) => {
       requestedAt: serverTimestamp(),
     });
     return { success: true, requestId: docRef.id };
-  } catch (error) {
+  } catch {
     throw new Error('관리자에게 문의해주세요.');
   }
 };

@@ -36,14 +36,12 @@ const LoginForm = () => {
       });
       setTimeout(() => {
         navigate('/bookarchive');
-      }, 1500); // notification 보여줄 시간 확보
+      }, 1500);
     } catch (err) {
       notification.error({
         message: '로그인 실패',
         description:
-          err instanceof Object
-            ? err.toString()
-            : '관리자(01066075071)로 연락주세요.',
+          err instanceof Object ? err.toString() : '관리자에게 연락주세요.',
         duration: 2,
         placement: 'topRight',
       });
