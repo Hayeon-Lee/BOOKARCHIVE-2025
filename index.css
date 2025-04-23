@@ -4,6 +4,22 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 기본 적용 */
+html,
 body {
+  font-family: '42dot Sans', sans-serif !important;
+}
+
+/* antd 컴포넌트 강제 적용 */
+.ant-typography,
+.ant-form,
+.ant-form-item-label,
+.ant-btn,
+.ant-input,
+.ant-input-affix-wrapper,
+.ant-select,
+.ant-select-selector,
+.ant-radio-wrapper,
+.ant-checkbox-wrapper {
   font-family: '42dot Sans', sans-serif !important;
 }
