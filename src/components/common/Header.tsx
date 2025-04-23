@@ -1,6 +1,8 @@
-import { Button } from 'antd';
+import { Button, Typography } from 'antd';
 import { useUserStore } from '../../services/auth/useUsrStoreService';
 import { useNavigate } from 'react-router-dom';
+
+const { Title } = Typography;
 
 const Header = () => {
   const loginUser = useUserStore((state) => state.loginUser);
@@ -12,8 +14,6 @@ const Header = () => {
     navigate('/');
   };
 
-  if (!loginUser) return null;
-
   return (
     <div
       style={{
@@ -23,13 +23,21 @@ const Header = () => {
         justifyContent: 'space-between',
       }}
     >
-      <div>📚 BOOKARCHIVE-2025</div>
-      <div>
-        <span style={{ marginRight: 12 }}>{loginUser.nickname}님</span>
-        <Button danger onClick={handleLogout}>
-          로그아웃
-        </Button>
-      </div>
+      <Title
+        level={2}
+        onClick={() => navigate('/bookarchive')}
+        style={{ cursor: 'pointer' }}
+      >
+        📚 BOOKARCHIVE-2025
+      </Title>
+      {loginUser ? (
+        <div>
+          <span style={{ marginRight: 12 }}>{loginUser.nickname}님</span>
+          <Button danger onClick={handleLogout}>
+            로그아웃
+          </Button>
+        </div>
+      ) : null}
     </div>
   );
 };
