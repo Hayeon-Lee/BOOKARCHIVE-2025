@@ -55,7 +55,7 @@ const ChangePasswordPage = () => {
       </Form.Item>
 
       <Form.Item
-        label="비밀번호"
+        label="바꿀 비밀번호"
         name="password"
         rules={[{ required: true, message: '비밀번호를 입력해주세요.' }]}
       >
