@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserStore } from '../../services/auth/useUsrStoreService';
-import { Form, Input, Typography, message } from 'antd';
+import { Form, Input, notification } from 'antd';
 
 import { loginUser } from '../../services/auth/authService';
 import AuthButton from './AuthButton';
-
-const { Text } = Typography;
 
 const LoginForm = () => {
   const [error, setError] = useState<string>('');
@@ -30,10 +28,25 @@ const LoginForm = () => {
       });
 
       setSuccess(true);
-      message.success('로그인 성공!');
-      navigate('/bookarchive');
+      notification.success({
+        message: '로그인 성공!',
+        description: `${userData.nickname}님, 환영합니다.`,
+        duration: 2,
+        placement: 'topRight',
+      });
+      setTimeout(() => {
+        navigate('/bookarchive');
+      }, 1500); // notification 보여줄 시간 확보
     } catch (err) {
-      message.error((err as Error).message);
+      notification.error({
+        message: '로그인 실패',
+        description:
+          err instanceof Object
+            ? err.toString()
+            : '관리자(01066075071)로 연락주세요.',
+        duration: 2,
+        placement: 'topRight',
+      });
     }
   };
 
@@ -67,8 +80,6 @@ const LoginForm = () => {
         <AuthButton htmlType="submit" label="로그인" />
         <AuthButton onClick={handleChangePassword} label="비밀번호 변경" />
       </Form.Item>
-
-      {error && <Text type="danger">{error}</Text>}
     </Form>
   );
 };
