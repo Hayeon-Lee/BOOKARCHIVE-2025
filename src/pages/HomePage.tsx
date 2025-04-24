@@ -52,18 +52,20 @@ const HomePage = () => {
         <Spin size="large" />
       ) : (
         <Row gutter={[16, 16]}>
-          {userSummaries.map((summary) => (
-            <Col span={6} key={summary.userId}>
-              <MemberSummaryCard
-                nickname={summary.nickname}
-                count={summary.count}
-                userId={summary.userId}
-                onClick={() => {
-                  navigate(`/bookarchive/${summary.userId}`);
-                }}
-              />
-            </Col>
-          ))}
+          {[...userSummaries]
+            .sort((a, b) => a.nickname.localeCompare(b.nickname))
+            .map((summary) => (
+              <Col span={6} key={summary.userId}>
+                <MemberSummaryCard
+                  nickname={summary.nickname}
+                  count={summary.count}
+                  userId={summary.userId}
+                  onClick={() => {
+                    navigate(`/bookarchive/${summary.userId}`);
+                  }}
+                />
+              </Col>
+            ))}
         </Row>
       )}
 
