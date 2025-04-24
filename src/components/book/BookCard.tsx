@@ -107,6 +107,30 @@ const BookCard: React.FC<BookCardProps> = ({
     }
   };
 
+  const handleCancelComplete = async () => {
+    if (!loginUser?.userId) return;
+
+    try {
+      const updatedBook: ReadBookData = {
+        id,
+        title,
+        author,
+        targetDate,
+        targetAmount,
+        completeDate: null,
+        isCompleted: false,
+      };
+
+      await modifyBookService(loginUser.userId, updatedBook);
+      message.success('목표 달성이 취소되었습니다.');
+      setIsModalOpen(false);
+      onUpdate?.({ ...updatedBook });
+    } catch (error) {
+      console.error(error);
+      message.error('취소 처리 중 오류가 발생했습니다.');
+    }
+  };
+
   const handleDisabledDate = (current: Dayjs) => {
     return current && current > dayjs().endOf('day');
   };
@@ -148,12 +172,17 @@ const BookCard: React.FC<BookCardProps> = ({
                     목표 달성 완료
                   </Button>
                 )}
+                {completeDate && (
+                  <Button onClick={handleCancelComplete}>달성 취소</Button>
+                )}
                 <Button danger onClick={handleDelete}>
                   삭제
                 </Button>
-                <Button type="primary" onClick={handleEdit}>
-                  수정
-                </Button>
+                {completeDate ? null : (
+                  <Button type="primary" onClick={handleEdit}>
+                    수정{' '}
+                  </Button>
+                )}
               </>
             )
           ) : null

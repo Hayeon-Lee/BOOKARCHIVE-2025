@@ -4,7 +4,7 @@ export interface BookData {
   author: string;
   targetDate: Date;
   targetAmount: string;
-  completeDate?: Date;
+  completeDate?: Date | null;
   isCompleted?: boolean;
 }
 
@@ -29,8 +29,6 @@ export interface AddBookModalProps {
 
 export interface ReadBookData extends BookData {
   id: string;
-  completeDate?: Date;
-  isCompleted?: boolean;
   deleted?: boolean;
 }
 
