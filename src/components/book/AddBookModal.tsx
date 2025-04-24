@@ -1,6 +1,5 @@
 import React from 'react';
 import { Modal, Form, Input, DatePicker } from 'antd';
-import dayjs, { Dayjs } from 'dayjs';
 import { AddBookModalProps } from '../../types/book';
 
 const AddBookModal: React.FC<AddBookModalProps> = ({
@@ -19,10 +18,6 @@ const AddBookModal: React.FC<AddBookModalProps> = ({
     form.resetFields();
   };
 
-  const handleDisabledDate = (current: Dayjs) => {
-    return current && current > dayjs().endOf('day');
-  };
-
   return (
     <Modal
       open={open}
@@ -39,13 +34,18 @@ const AddBookModal: React.FC<AddBookModalProps> = ({
         <Form.Item label="저자" name="author" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
-        <Form.Item label="날짜" name="date" rules={[{ required: true }]}>
-          <DatePicker
-            style={{ width: '100%' }}
-            disabledDate={handleDisabledDate}
-          />
+        <Form.Item
+          label="목표 날짜"
+          name="targetDate"
+          rules={[{ required: true }]}
+        >
+          <DatePicker />
         </Form.Item>
-        <Form.Item label="평점" name="rating" rules={[{ required: true }]}>
+        <Form.Item
+          label="목표 분량"
+          name="targetAmount"
+          rules={[{ required: true }]}
+        >
           <Input.TextArea />
         </Form.Item>
       </Form>

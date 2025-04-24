@@ -21,8 +21,9 @@ const BookCard: React.FC<BookCardProps> = ({
   id,
   title,
   author,
-  date,
-  rating,
+  targetDate,
+  targetAmount,
+  completedDate,
   onUpdate,
   userId,
 }) => {

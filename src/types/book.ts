@@ -1,9 +1,11 @@
 export interface BookData {
-  id: string;
+  id?: string;
   title: string;
   author: string;
-  date: Date;
-  rating?: string;
+  targetDate: Date;
+  targetAmount: string;
+  completeDate?: Date;
+  isCompleted?: boolean;
 }
 
 export interface Summary {
@@ -25,18 +27,16 @@ export interface AddBookModalProps {
   onSubmit: (book: BookData) => void;
 }
 
-export interface ReadBookData {
+export interface ReadBookData extends BookData {
   id: string;
-  title: string;
-  author: string;
-  date: Date;
-  rating?: string;
+  completeDate?: Date;
+  isCompleted?: boolean;
   deleted?: boolean;
 }
 
 export type DeletedBook = { id: string; deleted: true };
 
-export interface BookCardProps extends BookData {
+export interface BookCardProps extends ReadBookData {
   userId: string;
   onUpdate?: (updateBook: ReadBookData | DeletedBook) => void;
 }
