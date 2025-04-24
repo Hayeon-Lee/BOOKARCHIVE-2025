@@ -80,7 +80,11 @@ const MyShelfPage = () => {
         : dayjs(book.completeDate).isSame(selectedMonth, 'month')),
   );
 
-  const incompleteBooks = books.filter((book) => !book.isCompleted);
+  const incompleteBooks = books
+    .filter((book) => !book.isCompleted)
+    .sort(
+      (a, b) => dayjs(a.targetDate).valueOf() - dayjs(b.targetDate).valueOf(),
+    );
 
   return (
     <div style={{ padding: 24 }}>
