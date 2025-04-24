@@ -61,16 +61,23 @@ const MyShelfPage = () => {
     }
   };
 
-  const handleUpdate = (updatedBook: ReadBookData) => {
-    setBooks((prev) =>
-      updatedBook.deleted
-        ? prev.filter((b) => b.id !== updatedBook.id)
-        : prev.map((b) => (b.id === updatedBook.id ? updatedBook : b)),
-    );
+  const handleUpdate = (updatedBook: ReadBookData | DeletedBook) => {
+    if ('deleted' in updatedBook && updatedBook.deleted) {
+      setBooks((prev) => prev.filter((b) => b.id !== updatedBook.id));
+    } else {
+      setBooks((prev) =>
+        prev.map((b) => (b.id === updatedBook.id ? updatedBook : b)),
+      );
+    }
   };
 
   const completedBooks = books.filter(
-    (book) => book.isCompleted && book.completeDate,
+    (book) =>
+      book.isCompleted &&
+      book.completeDate &&
+      (viewAllYear
+        ? dayjs(book.completeDate).year() === dayjs().year()
+        : dayjs(book.completeDate).isSame(selectedMonth, 'month')),
   );
 
   const incompleteBooks = books.filter((book) => !book.isCompleted);
@@ -93,15 +100,11 @@ const MyShelfPage = () => {
           marginBottom: 16,
         }}
       >
-        <MonthSelector value={selectedMonth} onChange={setSelectedMonth} />
         {loginUser?.userId === userId && (
           <Button type="primary" onClick={() => setOpen(true)}>
             책 추가하기
           </Button>
         )}
-        <Button onClick={() => setViewAllYear((prev) => !prev)}>
-          {viewAllYear ? '월별로 보기' : '올해 읽은 책 전체 보기'}
-        </Button>
       </div>
 
       {loading ? (
@@ -118,19 +121,7 @@ const MyShelfPage = () => {
                   <BookCard
                     {...book}
                     userId={userId!}
-                    onUpdate={(updatedBook: ReadBookData | DeletedBook) => {
-                      if ('deleted' in updatedBook && updatedBook.deleted) {
-                        setBooks((prev) =>
-                          prev.filter((b) => b.id !== updatedBook.id),
-                        );
-                      } else {
-                        setBooks((prev) =>
-                          prev.map((b) =>
-                            b.id === updatedBook.id ? updatedBook : b,
-                          ),
-                        );
-                      }
-                    }}
+                    onUpdate={handleUpdate}
                   />
                 </Col>
               ))}
@@ -140,8 +131,12 @@ const MyShelfPage = () => {
           <Divider />
 
           <Title level={4}>🎉 달성한 목표</Title>
+          <MonthSelector value={selectedMonth} onChange={setSelectedMonth} />
+          <Button onClick={() => setViewAllYear((prev) => !prev)}>
+            {viewAllYear ? '월별로 보기' : '올해 읽은 책 전체 보기'}
+          </Button>
           {completedBooks.length === 0 ? (
-            <Empty description="달성한 책이 없습니다." />
+            <Empty description="책장이 비었습니다." />
           ) : (
             <Row gutter={[16, 16]}>
               {completedBooks.map((book) => (
@@ -149,19 +144,7 @@ const MyShelfPage = () => {
                   <BookCard
                     {...book}
                     userId={userId!}
-                    onUpdate={(updatedBook: ReadBookData | DeletedBook) => {
-                      if ('deleted' in updatedBook && updatedBook.deleted) {
-                        setBooks((prev) =>
-                          prev.filter((b) => b.id !== updatedBook.id),
-                        );
-                      } else {
-                        setBooks((prev) =>
-                          prev.map((b) =>
-                            b.id === updatedBook.id ? updatedBook : b,
-                          ),
-                        );
-                      }
-                    }}
+                    onUpdate={handleUpdate}
                   />
                 </Col>
               ))}

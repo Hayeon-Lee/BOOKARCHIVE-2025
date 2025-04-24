@@ -18,7 +18,7 @@ export const getBooksPerUserByMonth = async (
 
     const filteredBooks = booksSnapshot.docs.filter((doc) => {
       const data = doc.data();
-      const completeDate = dayjs(data.completeDate?.toDate()?.());
+      const completeDate = dayjs(data.completeDate?.toDate());
 
       return (
         data.isCompleted === true &&
