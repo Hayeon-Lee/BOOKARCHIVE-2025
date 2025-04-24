@@ -137,6 +137,13 @@ const MyShelfPage = () => {
                 date={book.date}
                 rating={book.rating}
                 id={book.id}
+                onUpdate={(updatedBook) => {
+                  setBooks((prev) =>
+                    prev.map((b) =>
+                      b.id === updatedBook.id ? updatedBook : b,
+                    ),
+                  );
+                }}
               />
             </Col>
           ))}
