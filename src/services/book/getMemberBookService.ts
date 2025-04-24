@@ -18,12 +18,12 @@ export const getBooksPerUserByMonth = async (
 
     const filteredBooks = booksSnapshot.docs.filter((doc) => {
       const data = doc.data();
-      const completedDate = dayjs(data.completedDate?.toDate()?.());
+      const completeDate = dayjs(data.completeDate?.toDate()?.());
 
       return (
         data.isCompleted === true &&
-        completedDate.isValid() &&
-        completedDate.isSame(month, 'month')
+        completeDate.isValid() &&
+        completeDate.isSame(month, 'month')
       );
     });
 
@@ -50,7 +50,7 @@ export const getBooksByUser = async (
       title: data.title,
       author: data.author,
       targetDate: data.targetDate?.toDate?.(),
-      completedDate: data.completedDate?.toDate?.(),
+      completeDate: data.completeDate?.toDate?.(),
       targetAmount: data.targetAmount,
       isCompleted: data.isCompleted ?? false,
     };

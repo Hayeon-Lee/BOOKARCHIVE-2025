@@ -13,7 +13,7 @@ export const modifyBookService = async (
     author: book.author,
     targetDate: book.targetDate,
     targetAmount: book.targetAmount,
-    completedDate: book.completeDate ?? null,
+    completeDate: book.completeDate ?? null,
     isCompleted: book.isCompleted ?? false,
   });
 };

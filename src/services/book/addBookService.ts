@@ -15,7 +15,7 @@ export const addBookByUser = async (userId: string, book: BookData) => {
       ...book,
       createdAt: serverTimestamp(),
       isCompleted: false,
-      completedDate: undefined,
+      completeDate: null,
     }),
   );
 
