@@ -34,5 +34,6 @@ export interface ReadBookData {
 }
 
 export interface BookCardProps extends BookData {
+  userId: string;
   onUpdate?: (updateBook: ReadBookData) => void;
 }

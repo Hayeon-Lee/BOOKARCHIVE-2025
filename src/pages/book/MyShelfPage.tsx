@@ -132,11 +132,8 @@ const MyShelfPage = () => {
           {booksToDisplay.map((book) => (
             <Col span={8} key={book.id}>
               <BookCard
-                title={book.title}
-                author={book.author}
-                date={book.date}
-                rating={book.rating}
-                id={book.id}
+                {...book}
+                userId={userId!}
                 onUpdate={(updatedBook) => {
                   setBooks((prev) =>
                     prev.map((b) =>

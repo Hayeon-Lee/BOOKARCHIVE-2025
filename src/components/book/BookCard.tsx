@@ -23,6 +23,7 @@ const BookCard: React.FC<BookCardProps> = ({
   date,
   rating,
   onUpdate,
+  userId,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -30,6 +31,7 @@ const BookCard: React.FC<BookCardProps> = ({
   const [form] = Form.useForm();
 
   const loginUser = useUserStore((state) => state.loginUser);
+  const isOwner = loginUser?.userId === userId;
 
   const handleEdit = () => {
     form.setFieldsValue({
@@ -86,18 +88,20 @@ const BookCard: React.FC<BookCardProps> = ({
           setIsEditing(false);
         }}
         footer={
-          isEditing ? (
-            <>
-              <Button onClick={() => setIsEditing(false)}>취소</Button>
-              <Button type="primary" onClick={handleSave}>
-                저장
+          isOwner ? (
+            isEditing ? (
+              <>
+                <Button onClick={() => setIsEditing(false)}>취소</Button>
+                <Button type="primary" onClick={handleSave}>
+                  저장
+                </Button>
+              </>
+            ) : (
+              <Button type="primary" onClick={handleEdit}>
+                수정
               </Button>
-            </>
-          ) : (
-            <Button type="primary" onClick={handleEdit}>
-              수정
-            </Button>
-          )
+            )
+          ) : null
         }
         title={isEditing ? '책 정보 수정' : '책 정보'}
       >
