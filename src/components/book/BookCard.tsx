@@ -39,10 +39,9 @@ const BookCard: React.FC<BookCardProps> = ({
     form.setFieldsValue({
       title,
       author,
-      date: dayjs(date),
-      rating,
+      targetDate: dayjs(targetDate),
+      targetAmount,
     });
-    console.log(rating);
     setIsEditing(true);
   };
 
@@ -92,7 +91,7 @@ const BookCard: React.FC<BookCardProps> = ({
         <Title level={5}>{title}</Title>
         <Text>{author}</Text>
         <br />
-        <Text type="secondary">{date.toLocaleDateString()}</Text>
+        <Text type="secondary">{completedDate.toLocaleDateString()}</Text>
         {rating && <p>{rating}</p>}
       </Card>
 

@@ -62,16 +62,20 @@ const MyShelfPage = () => {
   };
 
   const booksThisYear = books.filter(
-    (book) => dayjs(book.date).year() === dayjs().year(),
+    (book) => dayjs(book.completeDate).year() === dayjs().year(),
   );
 
   const booksThisMonth = booksThisYear
-    .filter((book) => dayjs(book.date).isSame(selectedMonth, 'month'))
-    .sort((a, b) => dayjs(a.date).valueOf() - dayjs(b.date).valueOf());
+    .filter((book) => dayjs(book.completeDate).isSame(selectedMonth, 'month'))
+    .sort(
+      (a, b) =>
+        dayjs(a.completeDate).valueOf() - dayjs(b.completeDate).valueOf(),
+    );
 
   const booksToDisplay = viewAllYear
     ? [...booksThisYear].sort(
-        (a, b) => dayjs(a.date).valueOf() - dayjs(b.date).valueOf(),
+        (a, b) =>
+          dayjs(a.completeDate).valueOf() - dayjs(b.completeDate).valueOf(),
       )
     : booksThisMonth;
 

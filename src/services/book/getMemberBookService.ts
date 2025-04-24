@@ -13,12 +13,18 @@ export const getBooksPerUserByMonth = async (
   for (const userDoc of userSnapshots.docs) {
     const userId = userDoc.id;
     const userData = userDoc.data();
+
     const booksSnapshot = await getDocs(collection(db, `user/${userId}/books`));
 
     const filteredBooks = booksSnapshot.docs.filter((doc) => {
       const data = doc.data();
-      const readDate = dayjs(data.date?.toDate?.());
-      return readDate.isValid() && readDate.isSame(month, 'month');
+      const completedDate = dayjs(data.completedDate?.toDate()?.());
+
+      return (
+        data.isCompleted === true &&
+        completedDate.isValid() &&
+        completedDate.isSame(month, 'month')
+      );
     });
 
     results.push({
