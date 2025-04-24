@@ -11,7 +11,7 @@ const MemberSummaryCard = ({
 }: MemberSummaryCardProps) => {
   return (
     <div onClick={onClick} style={{ cursor: 'pointer' }}>
-      <Card hoverable>
+      <Card hoverable style={{ borderColor: '#b8ddff' }}>
         <Title level={5}>{nickname}</Title>
         <Text>이번 달 읽은 책: {count}권</Text>
       </Card>

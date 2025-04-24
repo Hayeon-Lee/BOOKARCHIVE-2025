@@ -47,7 +47,9 @@ const HomePage = () => {
     <div>
       <Title level={3}>📅 월별 멤버별 독서 기록</Title>
       <MonthSelector value={selectedMonth} onChange={setSelectedMonth} />
-
+      <Button type="primary" onClick={handleGoToMyShelf}>
+        내 책장 보기
+      </Button>
       {loading ? (
         <Spin size="large" />
       ) : (
@@ -68,10 +70,6 @@ const HomePage = () => {
             ))}
         </Row>
       )}
-
-      <Button type="default" onClick={handleGoToMyShelf}>
-        내 책장 보기
-      </Button>
     </div>
   );
 };

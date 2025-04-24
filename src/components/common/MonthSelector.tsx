@@ -13,6 +13,7 @@ const MonthSelector: React.FC<MonthSelectorProps> = ({ value, onChange }) => {
       picker="month"
       value={value}
       onChange={(date) => date && onChange(date)}
+      style={{ marginBottom: '15px', marginRight: '15px' }}
     />
   );
 };
