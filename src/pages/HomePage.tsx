@@ -45,7 +45,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <Title level={2}>📅 월별 멤버별 독서 기록</Title>
+      <Title level={3}>📅 월별 멤버별 독서 기록</Title>
       <MonthSelector value={selectedMonth} onChange={setSelectedMonth} />
 
       {loading ? (
