@@ -26,8 +26,7 @@ const HomePage = () => {
       try {
         const summaries = await getBooksPerUserByMonth(selectedMonth);
         setUserSummaries(summaries);
-      } catch (error) {
-        console.log('멤버 요약 로딩 실패: ', error);
+      } catch {
       } finally {
         setLoading(false);
       }

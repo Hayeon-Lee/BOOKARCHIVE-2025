@@ -49,8 +49,10 @@ export const getBooksByUser = async (
       id: doc.id,
       title: data.title,
       author: data.author,
-      date: data.date?.toDate?.(),
-      rating: data.rating,
+      targetDate: data.targetDate?.toDate?.(),
+      completedDate: data.completedDate?.toDate?.(),
+      targetAmount: data.targetAmount,
+      isCompleted: data.isCompleted ?? false,
     };
   });
 };

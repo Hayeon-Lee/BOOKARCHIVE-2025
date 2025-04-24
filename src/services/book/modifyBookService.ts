@@ -8,12 +8,12 @@ export const modifyBookService = async (
 ): Promise<void> => {
   const bookRef = doc(db, `user/${userId}/books`, book.id);
 
-  console.log(book);
-
   await updateDoc(bookRef, {
     title: book.title,
     author: book.author,
-    date: book.date,
-    rating: book.rating,
+    targetDate: book.targetDate,
+    targetAmount: book.targetAmount,
+    completedDate: book.completeDate ?? null,
+    isCompleted: book.isCompleted ?? false,
   });
 };

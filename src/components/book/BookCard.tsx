@@ -8,6 +8,7 @@ import {
   Input,
   DatePicker,
   message,
+  Tag,
 } from 'antd';
 import { BookCardProps, ReadBookData } from '../../types/book';
 import dayjs, { Dayjs } from 'dayjs';
@@ -23,12 +24,14 @@ const BookCard: React.FC<BookCardProps> = ({
   author,
   targetDate,
   targetAmount,
-  completedDate,
+  completeDate,
   onUpdate,
   userId,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isCompleting, setIsCompleting] = useState<boolean>(false);
+  const [completionDate, setCompletionDate] = useState<Dayjs | null>(dayjs());
 
   const [form] = Form.useForm();
 
@@ -51,7 +54,8 @@ const BookCard: React.FC<BookCardProps> = ({
       const updatedBook: ReadBookData = {
         ...values,
         id,
-        date: values.date.toDate(),
+        targetDate: values.targetDate.toDate(),
+        targetAmount: values.targetAmount,
       };
 
       if (loginUser?.userId)
@@ -62,8 +66,7 @@ const BookCard: React.FC<BookCardProps> = ({
       setIsModalOpen(false);
 
       onUpdate?.(updatedBook);
-    } catch (error) {
-      console.log(error);
+    } catch {
       message.error('수정 중 오류가 발생했습니다.');
     }
   };
@@ -81,6 +84,29 @@ const BookCard: React.FC<BookCardProps> = ({
     }
   };
 
+  const handleMarkComplete = async () => {
+    if (!loginUser?.userId || !completionDate) return;
+
+    try {
+      const updatedBook: ReadBookData = {
+        id,
+        title,
+        author,
+        targetDate,
+        targetAmount,
+        completeDate: completionDate.toDate(),
+        isCompleted: true,
+      };
+      await modifyBookService(loginUser.userId, updatedBook);
+      message.success('목표가 달성되었습니다!');
+      setIsCompleting(false);
+      setIsModalOpen(false);
+      onUpdate?.(updatedBook);
+    } catch {
+      message.error('목표 달성 처리 중 오류가 발생하였습니다.');
+    }
+  };
+
   const handleDisabledDate = (current: Dayjs) => {
     return current && current > dayjs().endOf('day');
   };
@@ -91,8 +117,13 @@ const BookCard: React.FC<BookCardProps> = ({
         <Title level={5}>{title}</Title>
         <Text>{author}</Text>
         <br />
-        <Text type="secondary">{completedDate.toLocaleDateString()}</Text>
-        {rating && <p>{rating}</p>}
+        {completeDate ? (
+          <Tag color="green">
+            달성 완료: {dayjs(completeDate).format('YYYY.MM.DD')}
+          </Tag>
+        ) : (
+          <Text type="secondary">아직 미완료</Text>
+        )}
       </Card>
 
       <Modal
@@ -112,6 +143,11 @@ const BookCard: React.FC<BookCardProps> = ({
               </>
             ) : (
               <>
+                {!completeDate && (
+                  <Button onClick={() => setIsCompleting(true)}>
+                    목표 달성 완료
+                  </Button>
+                )}
                 <Button danger onClick={handleDelete}>
                   삭제
                 </Button>
@@ -132,13 +168,13 @@ const BookCard: React.FC<BookCardProps> = ({
             <Form.Item label="저자" name="author">
               <Input />
             </Form.Item>
-            <Form.Item label="날짜" name="date">
+            <Form.Item label="목표 날짜" name="targetDate">
               <DatePicker
                 style={{ width: '100%' }}
                 disabledDate={handleDisabledDate}
               />
             </Form.Item>
-            <Form.Item label="평가" name="rating">
+            <Form.Item label="목표 분량" name="targetAmount">
               <Input.TextArea rows={3} />
             </Form.Item>
           </Form>
@@ -151,13 +187,33 @@ const BookCard: React.FC<BookCardProps> = ({
               <strong>저자:</strong> {author}
             </p>
             <p>
-              <strong>날짜:</strong> {date.toLocaleDateString()}
+              <strong>목표 날짜:</strong>{' '}
+              {dayjs(targetDate).format('YYYY.MM.DD')}
             </p>
             <p>
-              <strong>메모:</strong> {rating || '-'}
+              <strong>목표 분량:</strong> {targetAmount}
+            </p>
+            <p>
+              <strong>완료 날짜:</strong>{' '}
+              {completeDate ? dayjs(completeDate).format('YYYY.MM.DD') : '-'}
             </p>
           </>
         )}
+      </Modal>
+      <Modal
+        open={isCompleting}
+        title="완료 날짜 선택"
+        onCancel={() => setIsCompleting(false)}
+        onOk={handleMarkComplete}
+        okText="달성 완료"
+        cancelText="취소"
+      >
+        <DatePicker
+          value={completionDate}
+          onChange={(date) => setCompletionDate(date)}
+          style={{ width: '100%' }}
+          disabledDate={handleDisabledDate}
+        />
       </Modal>
     </>
   );

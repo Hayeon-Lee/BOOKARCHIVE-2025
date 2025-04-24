@@ -13,7 +13,9 @@ const AddBookModal: React.FC<AddBookModalProps> = ({
     const values = await form.validateFields();
     onSubmit({
       ...values,
-      date: values.date.toDate(),
+      targetDate: values.targetDate.toDate(),
+      isCompleted: false,
+      completeDate: null,
     });
     form.resetFields();
   };
