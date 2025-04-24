@@ -1,8 +1,9 @@
 export interface BookData {
+  id: string;
   title: string;
   author: string;
   date: Date;
-  memo?: string;
+  rating?: string;
 }
 
 export interface Summary {
@@ -29,5 +30,9 @@ export interface ReadBookData {
   title: string;
   author: string;
   date: Date;
-  memo?: string;
+  rating?: string;
+}
+
+export interface BookCardProps extends BookData {
+  onUpdate?: (updateBook: ReadBookData) => void;
 }

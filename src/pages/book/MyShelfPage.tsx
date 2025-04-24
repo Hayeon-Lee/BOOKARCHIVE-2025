@@ -135,7 +135,8 @@ const MyShelfPage = () => {
                 title={book.title}
                 author={book.author}
                 date={book.date}
-                memo={book.memo}
+                rating={book.rating}
+                id={book.id}
               />
             </Col>
           ))}

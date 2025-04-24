@@ -44,7 +44,7 @@ export const getBooksByUser = async (
       title: data.title,
       author: data.author,
       date: data.date?.toDate?.(),
-      memo: data.memo,
+      rating: data.rating,
     };
   });
 };

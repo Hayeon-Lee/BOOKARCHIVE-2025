@@ -1,30 +1,68 @@
 import { useState } from 'react';
-import { Card, Typography, Modal, Button, Form, Input, DatePicker } from 'antd';
-import { BookData } from '../../types/book';
+import {
+  Card,
+  Typography,
+  Modal,
+  Button,
+  Form,
+  Input,
+  DatePicker,
+  message,
+} from 'antd';
+import { BookCardProps, ReadBookData } from '../../types/book';
 import dayjs, { Dayjs } from 'dayjs';
+import { modifyBookService } from '../../services/book/modifyBookService';
+import { useUserStore } from '../../services/auth/useUsrStoreService';
 
 const { Title, Text } = Typography;
 
-const BookCard: React.FC<BookData> = ({ title, author, date, memo }) => {
+const BookCard: React.FC<BookCardProps> = ({
+  id,
+  title,
+  author,
+  date,
+  rating,
+  onUpdate,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const [form] = Form.useForm();
+
+  const loginUser = useUserStore((state) => state.loginUser);
 
   const handleEdit = () => {
     form.setFieldsValue({
       title,
       author,
       date: dayjs(date),
-      memo,
+      rating,
     });
+    console.log(rating);
     setIsEditing(true);
   };
 
-  const handleSave = () => {
-    const values = form.getFieldsValue();
-    setIsEditing(false);
-    setIsModalOpen(false);
+  const handleSave = async () => {
+    try {
+      const values = form.getFieldsValue();
+      const updatedBook: ReadBookData = {
+        ...values,
+        id,
+        date: values.date.toDate(),
+      };
+
+      if (loginUser?.userId)
+        await modifyBookService(loginUser.userId, updatedBook);
+
+      message.success('수정이 완료되었습니다!');
+      setIsEditing(false);
+      setIsModalOpen(false);
+
+      onUpdate?.(updatedBook);
+    } catch (error) {
+      console.log(error);
+      message.error('수정 중 오류가 발생했습니다.');
+    }
   };
 
   const handleDisabledDate = (current: Dayjs) => {
@@ -38,7 +76,7 @@ const BookCard: React.FC<BookData> = ({ title, author, date, memo }) => {
         <Text>{author}</Text>
         <br />
         <Text type="secondary">{date.toLocaleDateString()}</Text>
-        {memo && <p>{memo}</p>}
+        {rating && <p>{rating}</p>}
       </Card>
 
       <Modal
@@ -77,7 +115,7 @@ const BookCard: React.FC<BookData> = ({ title, author, date, memo }) => {
                 disabledDate={handleDisabledDate}
               />
             </Form.Item>
-            <Form.Item label="메모" name="memo">
+            <Form.Item label="평가" name="rating">
               <Input.TextArea rows={3} />
             </Form.Item>
           </Form>
@@ -93,7 +131,7 @@ const BookCard: React.FC<BookData> = ({ title, author, date, memo }) => {
               <strong>날짜:</strong> {date.toLocaleDateString()}
             </p>
             <p>
-              <strong>메모:</strong> {memo || '-'}
+              <strong>메모:</strong> {rating || '-'}
             </p>
           </>
         )}
