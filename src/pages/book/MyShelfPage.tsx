@@ -71,14 +71,19 @@ const MyShelfPage = () => {
     }
   };
 
-  const completedBooks = books.filter(
-    (book) =>
-      book.isCompleted &&
-      book.completeDate &&
-      (viewAllYear
-        ? dayjs(book.completeDate).year() === dayjs().year()
-        : dayjs(book.completeDate).isSame(selectedMonth, 'month')),
-  );
+  const completedBooks = books
+    .filter(
+      (book) =>
+        book.isCompleted &&
+        book.completeDate &&
+        (viewAllYear
+          ? dayjs(book.completeDate).year() === dayjs().year()
+          : dayjs(book.completeDate).isSame(selectedMonth, 'month')),
+    )
+    .sort(
+      (a, b) =>
+        dayjs(a.completeDate).valueOf() - dayjs(b.completeDate).valueOf(),
+    );
 
   const incompleteBooks = books
     .filter((book) => !book.isCompleted)
