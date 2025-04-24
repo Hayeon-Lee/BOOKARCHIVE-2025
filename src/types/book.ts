@@ -31,9 +31,12 @@ export interface ReadBookData {
   author: string;
   date: Date;
   rating?: string;
+  deleted?: boolean;
 }
+
+export type DeletedBook = { id: string; deleted: true };
 
 export interface BookCardProps extends BookData {
   userId: string;
-  onUpdate?: (updateBook: ReadBookData) => void;
+  onUpdate?: (updateBook: ReadBookData | DeletedBook) => void;
 }

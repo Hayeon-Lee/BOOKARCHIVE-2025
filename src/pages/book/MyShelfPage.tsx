@@ -135,11 +135,17 @@ const MyShelfPage = () => {
                 {...book}
                 userId={userId!}
                 onUpdate={(updatedBook) => {
-                  setBooks((prev) =>
-                    prev.map((b) =>
-                      b.id === updatedBook.id ? updatedBook : b,
-                    ),
-                  );
+                  if (updatedBook.deleted) {
+                    setBooks((prev) =>
+                      prev.filter((b) => b.id != updatedBook.id),
+                    );
+                  } else {
+                    setBooks((prev) =>
+                      prev.map((b) =>
+                        b.id === updatedBook.id ? updatedBook : b,
+                      ),
+                    );
+                  }
                 }}
               />
             </Col>

@@ -13,6 +13,7 @@ import { BookCardProps, ReadBookData } from '../../types/book';
 import dayjs, { Dayjs } from 'dayjs';
 import { modifyBookService } from '../../services/book/modifyBookService';
 import { useUserStore } from '../../services/auth/useUsrStoreService';
+import { deleteBookService } from '../../services/book/deleteBookService';
 
 const { Title, Text } = Typography;
 
@@ -67,6 +68,19 @@ const BookCard: React.FC<BookCardProps> = ({
     }
   };
 
+  const handleDelete = async () => {
+    if (!loginUser?.userId) return;
+
+    try {
+      await deleteBookService(loginUser.userId, id);
+      message.success('삭제되었습니다.');
+      setIsModalOpen(false);
+      onUpdate?.({ id, deleted: true });
+    } catch {
+      message.error('삭제에 실패했습니다.');
+    }
+  };
+
   const handleDisabledDate = (current: Dayjs) => {
     return current && current > dayjs().endOf('day');
   };
@@ -97,9 +111,14 @@ const BookCard: React.FC<BookCardProps> = ({
                 </Button>
               </>
             ) : (
-              <Button type="primary" onClick={handleEdit}>
-                수정
-              </Button>
+              <>
+                <Button danger onClick={handleDelete}>
+                  삭제
+                </Button>
+                <Button type="primary" onClick={handleEdit}>
+                  수정
+                </Button>
+              </>
             )
           ) : null
         }
