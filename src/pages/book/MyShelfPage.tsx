@@ -140,7 +140,9 @@ const MyShelfPage = () => {
           <Divider />
 
           <Title level={4}>🎉 달성한 목표</Title>
-          <MonthSelector value={selectedMonth} onChange={setSelectedMonth} />
+          {viewAllYear ? null : (
+            <MonthSelector value={selectedMonth} onChange={setSelectedMonth} />
+          )}
           <Button onClick={() => setViewAllYear((prev) => !prev)}>
             {viewAllYear ? '월별로 보기' : '올해 읽은 책 전체 보기'}
           </Button>

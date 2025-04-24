@@ -138,7 +138,10 @@ const BookCard: React.FC<BookCardProps> = ({
   return (
     <>
       <Card hoverable onClick={() => setIsModalOpen(true)}>
-        <Title level={5}>{title}</Title>
+        <Title level={5}>
+          {title}
+          <Text type="secondary">: {targetAmount}</Text>
+        </Title>
         <Text>{author}</Text>
         <br />
         {completeDate ? (
@@ -150,8 +153,6 @@ const BookCard: React.FC<BookCardProps> = ({
             <Text type="secondary">
               목표 날짜: {dayjs(targetDate).format('YYYY.MM.DD')}
             </Text>
-            <br />
-            <Text type="secondary">목표 분량: {targetAmount}</Text>
           </>
         )}
       </Card>
