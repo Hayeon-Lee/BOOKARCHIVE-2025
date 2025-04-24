@@ -146,7 +146,9 @@ const BookCard: React.FC<BookCardProps> = ({
             달성 완료: {dayjs(completeDate).format('YYYY.MM.DD')}
           </Tag>
         ) : (
-          <Text type="secondary">아직 미완료</Text>
+          <Text type="secondary">
+            목표 날짜: {dayjs(targetDate).format('YYYY.MM.DD')}
+          </Text>
         )}
       </Card>
 
