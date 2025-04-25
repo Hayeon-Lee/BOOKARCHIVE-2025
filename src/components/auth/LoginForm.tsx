@@ -78,11 +78,7 @@ const LoginForm = () => {
 
           <div className="flex justify-end">
             <AuthButton htmlType="submit" label="로그인" />
-            <AuthButton
-              onClick={handleChangePassword}
-              label="비밀번호 변경"
-              className="mr-4"
-            />
+            <AuthButton onClick={handleChangePassword} label="비밀번호 변경" />
           </div>
         </Form>
       </div>

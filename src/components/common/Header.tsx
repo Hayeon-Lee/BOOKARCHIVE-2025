@@ -15,20 +15,13 @@ const Header = () => {
   };
 
   return (
-    <div
-      style={{
-        padding: 16,
-        background: '#577aaf',
-        display: 'flex',
-        justifyContent: 'space-between',
-      }}
-    >
+    <div className="bg-[#577aaf] flex justify-between p-16">
       <Title
         level={2}
         onClick={() => navigate('/bookarchive')}
-        style={{ cursor: 'pointer' }}
+        className="cursor-pointer"
       >
-        📚 BOOKARCHIVE-2025
+        BOOKARCHIVE-2025
       </Title>
       {loginUser ? (
         <div>
