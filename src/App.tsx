@@ -1,7 +1,7 @@
 import LoginPage from './pages/auth/LoginPage';
 import ChangePasswordPage from './pages/auth/ChangePasswordPage';
 import { Route, Routes } from 'react-router-dom';
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 import ResetPasswordInfoPage from './pages/auth/ResetPasswordInfoPage';
 import HomePage from './pages/HomePage';
