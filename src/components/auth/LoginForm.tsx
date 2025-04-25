@@ -53,32 +53,40 @@ const LoginForm = () => {
   };
 
   return (
-    <Form
-      layout="vertical"
-      onFinish={handleLogin}
-      style={{ maxWidth: 400, margin: '0 auto' }}
-    >
-      <Form.Item
-        label="오픈 채팅방 닉네임"
-        name="nickname"
-        rules={[{ required: true, message: '닉네임을 입력해주세요.' }]}
-      >
-        <Input />
-      </Form.Item>
+    <div className="flex items-center justify-center h-screen">
+      <div className="w-1/2">
+        <Form
+          layout="vertical"
+          onFinish={handleLogin}
+          className="w-full bg-orange-200 p-6 rounded-lg shadow-md"
+        >
+          <Form.Item
+            label="오픈 채팅방 닉네임"
+            name="nickname"
+            rules={[{ required: true, message: '닉네임을 입력해주세요.' }]}
+          >
+            <Input />
+          </Form.Item>
 
-      <Form.Item
-        label="비밀번호"
-        name="password"
-        rules={[{ required: true, message: '비밀번호를 입력해주세요.' }]}
-      >
-        <Input.Password />
-      </Form.Item>
+          <Form.Item
+            label="비밀번호"
+            name="password"
+            rules={[{ required: true, message: '비밀번호를 입력해주세요.' }]}
+          >
+            <Input.Password />
+          </Form.Item>
 
-      <Form.Item>
-        <AuthButton htmlType="submit" label="로그인" />
-        <AuthButton onClick={handleChangePassword} label="비밀번호 변경" />
-      </Form.Item>
-    </Form>
+          <div className="flex justify-end">
+            <AuthButton htmlType="submit" label="로그인" />
+            <AuthButton
+              onClick={handleChangePassword}
+              label="비밀번호 변경"
+              className="mr-4"
+            />
+          </div>
+        </Form>
+      </div>
+    </div>
   );
 };
 

@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  important: true,
   content: [
     './index.html',
     './src/**/*.{js,ts,jsx,tsx}',
@@ -12,6 +13,9 @@ module.exports = {
         sans: ['"42dot Sans"', 'sans-serif'],
       },
     },
+  },
+  corePlugins: {
+    preflight: false,
   },
   plugins: [],
 };
