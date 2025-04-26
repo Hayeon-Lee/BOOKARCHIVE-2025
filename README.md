@@ -13,7 +13,7 @@
 
 ## 🎬 프로젝트 데모
 
-![](README_img/bookarchive-2025.gif)
+![](Readme_img/bookarchive-2025.gif)
 
 ---
 
@@ -112,7 +112,7 @@ src/
 
 ### 📈 성능 지표 (Vercel 기준)
 
-![Real Experience Score](README_img/bookarchive-res-performance.png)
+![Real Experience Score](Readme_img/bookarchive-res-performance.png)
 
 | 항목                      | 측정값 | 설명                    |
 | ------------------------- | ------ | ----------------------- |
