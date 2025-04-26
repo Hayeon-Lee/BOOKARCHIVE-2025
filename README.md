@@ -13,7 +13,7 @@
 
 ## 🎬 프로젝트 데모
 
-![](Readme_img/bookarchive-2025.gif)
+![](Readme_img/bookarchive-2025.mp4)
 
 ---
 
