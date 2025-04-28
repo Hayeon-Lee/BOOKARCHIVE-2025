@@ -205,10 +205,7 @@ const BookCard: React.FC<BookCardProps> = ({
               <Input />
             </Form.Item>
             <Form.Item label="목표 날짜" name="targetDate">
-              <DatePicker
-                style={{ width: '100%' }}
-                disabledDate={handleDisabledDate}
-              />
+              <DatePicker style={{ width: '100%' }} />
             </Form.Item>
             <Form.Item label="목표 분량" name="targetAmount">
               <Input.TextArea rows={3} />
