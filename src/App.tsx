@@ -10,6 +10,10 @@ import ProtectedRoute from './routes/ProtectedRoute';
 import PublicRoute from './routes/PublicRoute';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
+import AdminRoute from './routes/AdminRoute';
+import AdminDashboardPage from './pages/admin/AdminDashboardPage';
+import PasswordRequestPage from './pages/admin/PasswordRequestPage';
+import ReadingStatusPage from './pages/admin/ReadingStatusPage';
 
 const App = () => {
   return (
@@ -40,6 +44,17 @@ const App = () => {
           <Route element={<ProtectedRoute />}>
             <Route path="/bookarchive" element={<HomePage />}></Route>
             <Route path="/bookarchive/:userId" element={<MyShelfPage />} />
+          </Route>
+
+          {/* admin-only routes*/}
+          <Route element={<AdminRoute />}>
+            <Route path="/admin" element={<AdminDashboardPage />}>
+              <Route path="reading-status" element={<ReadingStatusPage />} />
+              <Route
+                path="password-requests"
+                element={<PasswordRequestPage />}
+              />
+            </Route>
           </Route>
         </Routes>
       </main>
