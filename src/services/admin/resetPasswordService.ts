@@ -2,7 +2,6 @@ import {
   collection,
   getDocs,
   doc,
-  getDoc,
   updateDoc,
   query,
   where,
