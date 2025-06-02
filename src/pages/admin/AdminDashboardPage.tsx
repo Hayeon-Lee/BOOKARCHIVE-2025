@@ -3,7 +3,7 @@ import { Layout, Menu } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-const { Header, Sider, Content } = Layout;
+const { Sider, Content } = Layout;
 
 const AdminDashboardPage = () => {
   const navigate = useNavigate();
