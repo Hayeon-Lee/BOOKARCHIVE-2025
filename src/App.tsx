@@ -2,6 +2,7 @@ import LoginPage from './pages/auth/LoginPage';
 import ChangePasswordPage from './pages/auth/ChangePasswordPage';
 import { Route, Routes } from 'react-router-dom';
 import { SpeedInsights } from '@vercel/speed-insights/react';
+import { Navigate } from 'react-router-dom';
 
 import ResetPasswordInfoPage from './pages/auth/ResetPasswordInfoPage';
 import HomePage from './pages/HomePage';
@@ -49,6 +50,7 @@ const App = () => {
           {/* admin-only routes*/}
           <Route element={<AdminRoute />}>
             <Route path="/admin" element={<AdminDashboardPage />}>
+              <Route index element={<Navigate to="reading-status" replace />} />
               <Route path="reading-status" element={<ReadingStatusPage />} />
               <Route
                 path="password-requests"

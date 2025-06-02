@@ -7,6 +7,9 @@ import {
   getDocs,
 } from 'firebase/firestore';
 import { db } from '../../firebase/firebaseConfig';
+import bcrypt from 'bcryptjs';
+
+const saltRounds = 10;
 
 const requestPasswordReset = async (nickname: string, newPassword: string) => {
   const userQuery = query(
@@ -28,9 +31,11 @@ const requestPasswordReset = async (nickname: string, newPassword: string) => {
   }
 
   try {
+    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+
     const docRef = await addDoc(collection(db, 'reset_requests'), {
       nickname,
-      newPassword,
+      newPassword: hashedPassword,
       status: 'pending',
       requestedAt: serverTimestamp(),
     });
