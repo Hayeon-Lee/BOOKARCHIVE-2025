@@ -28,7 +28,7 @@ const Header = () => {
         onClick={() => navigate('/bookarchive')}
         style={{ cursor: 'pointer' }}
       >
-        📚 BOOKARCHIVE-2025
+        📚 BOOKARCHIVE
       </Title>
       {loginUser ? (
         <div>
